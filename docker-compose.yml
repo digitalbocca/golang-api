@@ -1,0 +1,30 @@
+# Use postgres/example user/password credentials
+version: '3.9'
+services:
+  postgres:
+    image: postgres
+    # restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: golang-api
+    ports:
+      - "5432:5432"
+
+  # adminer:
+    # image: adminer
+    # restart: always
+    # ports:
+      # - 4321:8080
+
+volumes:
+  db-data:
+    name: "postgres-data"
+    labels:
+      - "br.com.estudiodigitalbocca.description=Postgres Data Volume"
+      - "br.com.estudiodigitalbocca.owner=Estudio Digital Bocca"
